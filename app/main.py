@@ -19,21 +19,19 @@ Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="HRMS Lite API")
 
+# CORS configuration
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[FRONTEND_URL],
+    allow_origins=[
+        "http://localhost:5173",
+        FRONTEND_URL
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 app.include_router(employee_router)
-app.include_router(attendance_router)
-
-@app.get("/")
-def root():
-    return {"message": "HRMS Lite backend running"}
-
 app.include_router(attendance_router)
 
 @app.get("/")
