@@ -4,6 +4,7 @@
 from dotenv import load_dotenv
 load_dotenv()
 
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -12,24 +13,27 @@ from app.models import employee, attendance
 from app.routes.employee import router as employee_router
 from app.routes.attendance import router as attendance_router
 
+FRONTEND_URL = os.getenv("FRONTEND_URL")
+
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="HRMS Lite API")
 
-# CORS configuration
-# Allows frontend to communicate with backend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",      # local frontend
-        "https://your-frontend.vercel.app"  # future prod frontend
-    ],
+    allow_origins=[FRONTEND_URL],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 app.include_router(employee_router)
+app.include_router(attendance_router)
+
+@app.get("/")
+def root():
+    return {"message": "HRMS Lite backend running"}
+
 app.include_router(attendance_router)
 
 @app.get("/")
