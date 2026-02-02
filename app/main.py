@@ -2,7 +2,8 @@
 # Creates FastAPI instance and root test route
 
 from fastapi import FastAPI
-
+from dotenv import load_dotenv
+load_dotenv()
 app = FastAPI(title="HRMS Lite API")
 
 @app.get("/")
