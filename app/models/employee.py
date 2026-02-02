@@ -1,5 +1,5 @@
 # Employee table definition
-# Stores core employee information
+# Stores employee master data
 
 import uuid
 from sqlalchemy import Column, String

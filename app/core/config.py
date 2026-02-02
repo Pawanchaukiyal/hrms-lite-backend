@@ -1,8 +1,9 @@
 # Central configuration file
-# Stores environment-based settings like database URL
+# Reads environment variables for app settings
 
 import os
 
 DATABASE_URL = os.getenv(
-    "DATABASE_URL"
+    "DATABASE_URL",
+    "postgresql://username:password@localhost/dbname"
 )

@@ -1,7 +1,9 @@
 # Employee request and response schemas
-# Validates input data for employee APIs
+# Validates employee API input/output
 
 from pydantic import BaseModel, EmailStr
+from uuid import UUID
+
 
 class EmployeeCreate(BaseModel):
     employee_id: str
@@ -9,12 +11,14 @@ class EmployeeCreate(BaseModel):
     email: EmailStr
     department: str
 
+
 class EmployeeResponse(BaseModel):
-    id: str
+    id: UUID
     employee_id: str
     full_name: str
     email: str
     department: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
+

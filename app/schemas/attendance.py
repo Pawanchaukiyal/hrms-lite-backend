@@ -1,19 +1,22 @@
 # Attendance request and response schemas
-# Ensures valid attendance data
+# Validates attendance data (UUID-safe, Pydantic v2)
 
 from pydantic import BaseModel
+from uuid import UUID
 from datetime import date
 
+
 class AttendanceCreate(BaseModel):
-    employee_id: str
+    employee_id: UUID
     date: date
     status: str
 
+
 class AttendanceResponse(BaseModel):
-    id: str
-    employee_id: str
+    id: UUID
+    employee_id: UUID
     date: date
     status: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True

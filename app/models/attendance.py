@@ -1,6 +1,7 @@
 # Attendance table definition
 # Tracks daily attendance per employee
 
+import uuid
 from sqlalchemy import Column, Date, String, ForeignKey, UniqueConstraint
 from sqlalchemy.dialects.postgresql import UUID
 from app.database import Base
@@ -8,7 +9,7 @@ from app.database import Base
 class Attendance(Base):
     __tablename__ = "attendance"
 
-    id = Column(UUID(as_uuid=True), primary_key=True)
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     employee_id = Column(
         UUID(as_uuid=True),
         ForeignKey("employees.id", ondelete="CASCADE"),
